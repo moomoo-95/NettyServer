@@ -39,7 +39,6 @@ public class TcpChannelHandler extends ChannelInboundHandlerAdapter {
         String inboundMessage = ((ByteBuf) message).toString(CharsetUtil.UTF_8);
 
         logger.debug("({}) ({}:{}) TcpChannelHandler received : {}", name, listenIp, listenPort, inboundMessage);
-        sendResponse(context, name + listenIp + listenPort + " ok");
     }
 
     /**
@@ -52,11 +51,6 @@ public class TcpChannelHandler extends ChannelInboundHandlerAdapter {
         context.flush();
     }
 
-    @Override
-    public void channelInactive(ChannelHandlerContext ctx) {
-        logger.warn("({}) ({}:{}) TcpChannelHandler is inactive.", name, listenIp, listenPort);
-    }
-
     /**
      * @fn public void exceptionCaught
      * @brief 읽기 작업 중 예외사항 발생시 예외스택을 출력하고 채널을 닫는 메서드
@@ -67,9 +61,5 @@ public class TcpChannelHandler extends ChannelInboundHandlerAdapter {
     public void exceptionCaught(ChannelHandlerContext context, Throwable cause) {
         logger.error("({}) ({}:{}) TcpChannelHandler.exceptionCaught.Exception", name, listenIp, listenPort, cause);
         context.close();
-    }
-
-    private void sendResponse(ChannelHandlerContext ctx, String message) {
-        ctx.write(message);
     }
 }

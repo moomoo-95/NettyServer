@@ -29,6 +29,7 @@ public class DefaultConfig {
     //COMMON
     private String commonLocalIp = "";
     private int commonLocalPort = 0;
+    // NETTY
     private int nettyRecvBufSize = 0;
 
     public DefaultConfig(String configPath) {
